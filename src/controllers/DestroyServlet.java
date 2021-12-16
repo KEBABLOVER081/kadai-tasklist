@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.Message;
+import models.Task;
 import utils.DBUtil;
 
 /**
@@ -35,11 +35,11 @@ public class DestroyServlet extends HttpServlet {
             EntityManager em = DBUtil.createEntityManager();
 
             // セッションスコープからメッセージのIDを取得して
-            // 該当のIDのメッセージ1件のみをデータベースから取得
-            Message m = em.find(Message.class, (Integer)(request.getSession().getAttribute("message_id")));
+            // 該当のIDのタスク1件のみをデータベースから取得
+            Task t = em.find(Task.class, (Integer)(request.getSession().getAttribute("task_id")));
 
             em.getTransaction().begin();
-            em.remove(m);       // データ削除
+            em.remove(t);       // データ削除
             em.getTransaction().commit();
             em.close();
 
